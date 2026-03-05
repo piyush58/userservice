@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: piyushkumar11/userservice
+  tag: "1.0"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8080
