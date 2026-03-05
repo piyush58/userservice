@@ -32,8 +32,16 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh 'docker push $DOCKER_USER/$IMAGE_NAME:1.0'
-            }
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                    )]) {
+
+                    sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    sh 'docker push piyushkumar11/userservice:1.0'
+                   }
+                }
         }
 
         stage('Deploy') {
